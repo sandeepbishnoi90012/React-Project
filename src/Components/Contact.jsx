@@ -1,6 +1,21 @@
 import React from 'react'
-
+import axios from 'axios';
 export default function Contact() {
+    const formSubmitHandler = (event)=>{
+        event.preventDefault();
+        let name = event.target.name.value;
+        let email = event.target.email.value;
+        let phonNo = event.target.phonNo.value;
+        let msg = event.target.msg.value;
+        event.target.reset();
+        axios.post('posts',{name,email,phonNo,msg})
+        .then((responce)=>{
+            console.log(responce)
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
   return (
     <div className='mt-5'>
        <section className="page-section" id="contact">
@@ -23,29 +38,29 @@ export default function Contact() {
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!--> */}
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" onSubmit={formSubmitHandler}>
                             {/* <!-- Name input--> */}
                             <div className="form-floating mb-3">
-                                <input className="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                <input className="form-control" id="name" name='name' type="text" placeholder="Enter your name..." data-sb-validations="required" />
                                 <label htmlFor="name">Full name</label>
                                 <div className="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
                             {/* <!-- Email address input--> */}
                             <div className="form-floating mb-3">
-                                <input className="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <input className="form-control" id="email" type="email" name='email' placeholder="name@example.com" data-sb-validations="required,email" />
                                 <label htmlFor="email">Email address</label>
                                 <div className="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                 <div className="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                             </div>
                             {/* <!-- Phone number input--> */}
                             <div className="form-floating mb-3">
-                                <input className="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <input className="form-control" id="phone" type="tel" name='phonNo' placeholder="(123) 456-7890" data-sb-validations="required" />
                                 <label htmlFor="phone">Phone number</label>
                                 <div className="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                             </div>
                             {/* <!-- Message input--> */}
                             <div className="form-floating mb-3">
-                                <textarea className="form-control" id="message" type="text" placeholder="Enter your message here..."  style={{ height: '10rem' }} data-sb-validations="required"></textarea>
+                                <textarea className="form-control" id="message" name='msg' type="text" placeholder="Enter your message here..."  style={{ height: '10rem' }} data-sb-validations="required"></textarea>
                                 <label htmlFor="message">Message</label>
                                 <div className="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                             </div>
@@ -67,7 +82,7 @@ export default function Contact() {
                             <!-- an error submitting the form--> */}
                             <div className="d-none" id="submitErrorMessage"><div className="text-center text-danger mb-3">Error sending message!</div></div>
                             {/* <!-- Submit Button--> */}
-                            <button className="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Send</button>
+                            <button className="btn btn-primary btn-xl" id="submitButton" type="submit">Send</button>
                         </form>
                     </div>
                 </div>

@@ -22,7 +22,6 @@ export default class App extends Component {
     axios.get('https://jsonplaceholder.typicode.com/posts')
     .then((responce)=>{
       this.setState({posts : responce.data});
-      console.log(responce.data)
     })
     .catch((error)=>{
       console.log(error);
